@@ -66,7 +66,7 @@ class PublicUserApiTests(TestCase):
         ).exists()
         self.assertFalse(user_exists)
 
-    def create_token_for_user(self):
+    def test_create_token_for_user(self):
         """Test generates token for valid credentials."""
         user_details = {
             "name": "Test Name",
@@ -102,7 +102,7 @@ class PublicUserApiTests(TestCase):
         self.assertNotIn("token", res.data)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_retreive_user_unauthorized(self):
+    def test_retrieve_user_unauthorized(self):
         """Test authentication is required for users."""
         res = self.client.get(ME_URL)
 
@@ -121,8 +121,8 @@ class PrivateUserApiTests(TestCase):
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 
-    def test_retreive_profile_succes(self):
-        """Test retreiving profile for logged in user."""
+    def test_retrieve_profile_success(self):
+        """Test retrieving profile for logged in user."""
         res = self.client.get(ME_URL)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -137,7 +137,7 @@ class PrivateUserApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    def Test_update_user_profile(self):
+    def test_update_user_profile(self):
         """Test updating the user profile for the authenticated user."""
         payload = {'name': 'Updated name', 'password': 'newpassword123'}
 
