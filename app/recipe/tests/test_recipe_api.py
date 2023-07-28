@@ -1,5 +1,5 @@
 """
-Test for recipe APIs.
+Tests for recipe APIs.
 """
 from decimal import Decimal
 
@@ -46,7 +46,7 @@ def create_recipe(user, **params):
 
 
 def create_user(**params):
-    """Create and return a new user"""
+    """Create and return a new user."""
     return get_user_model().objects.create_user(**params)
 
 
@@ -72,7 +72,7 @@ class PrivateRecipeApiTests(TestCase):
         self.client.force_authenticate(self.user)
 
     def test_retrieve_recipes(self):
-        """Test retreiving a list of recipes"""
+        """Test retrieving a list of recipes."""
         create_recipe(user=self.user)
         create_recipe(user=self.user)
 
@@ -146,7 +146,7 @@ class PrivateRecipeApiTests(TestCase):
             user=self.user,
             title='Sample recipe title',
             link='https://example.com/recipe.pdf',
-            description='Sample recipe description.'
+            description='Sample recipe description.',
         )
 
         payload = {
@@ -178,7 +178,7 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(recipe.user, self.user)
 
     def test_delete_recipe(self):
-        """Test deleting a recipe successful"""
+        """Test deleting a recipe successful."""
         recipe = create_recipe(user=self.user)
 
         url = detail_url(recipe.id)
@@ -204,7 +204,7 @@ class PrivateRecipeApiTests(TestCase):
             'title': 'Thai Prawn Curry',
             'time_minutes': 30,
             'price': Decimal('2.50'),
-            'tags': [{'name': 'Thai'}, {'name': 'Dinner'}]
+            'tags': [{'name': 'Thai'}, {'name': 'Dinner'}],
         }
         res = self.client.post(RECIPES_URL, payload, format='json')
 
@@ -245,7 +245,7 @@ class PrivateRecipeApiTests(TestCase):
             self.assertTrue(exists)
 
     def test_create_tag_on_update(self):
-        """Test creating tag when updating a recipe."""
+        """Test create tag when updating a recipe."""
         recipe = create_recipe(user=self.user)
 
         payload = {'tags': [{'name': 'Lunch'}]}
@@ -271,8 +271,8 @@ class PrivateRecipeApiTests(TestCase):
         self.assertIn(tag_lunch, recipe.tags.all())
         self.assertNotIn(tag_breakfast, recipe.tags.all())
 
-    def test_clear_recipe_tag(self):
-        """Test clearing a recipe tags."""
+    def test_clear_recipe_tags(self):
+        """Test clearing a recipes tags."""
         tag = Tag.objects.create(user=self.user, name='Dessert')
         recipe = create_recipe(user=self.user)
         recipe.tags.add(tag)
