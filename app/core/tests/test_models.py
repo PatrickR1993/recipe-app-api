@@ -11,7 +11,7 @@ from core import models
 
 
 def create_user(email='user@example.com', password='testpass123'):
-    """Create and return a new user"""
+    """Create and return a new user."""
     return get_user_model().objects.create_user(email, password)
 
 
@@ -36,7 +36,7 @@ class ModelTests(TestCase):
             ['test1@EXAMPLE.com', 'test1@example.com'],
             ['Test2@Example.com', 'Test2@example.com'],
             ['TEST3@EXAMPLE.com', 'TEST3@example.com'],
-            ['test4@example.COM', 'test4@example.com']
+            ['test4@example.COM', 'test4@example.com'],
         ]
 
         for email, expected in sample_emails:
@@ -62,14 +62,14 @@ class ModelTests(TestCase):
         """Test creating a recipe is successful."""
         user = get_user_model().objects.create_user(
             'test@example.com',
-            'testpass123'
+            'testpass123',
         )
         recipe = models.Recipe.objects.create(
             user=user,
             title='Sample recipe name',
             time_minutes=5,
             price=Decimal('5.50'),
-            description='Sample recipe destription',
+            description='Sample recipe description.',
         )
 
         self.assertEqual(str(recipe), recipe.title)
@@ -81,8 +81,8 @@ class ModelTests(TestCase):
 
         self.assertEqual(str(tag), tag.name)
 
-    def test_create_ingedients(self):
-        """Test creating an ingedient is succesful."""
+    def test_create_ingredients(self):
+        """Test creating an ingredient is successful."""
         user = create_user()
         ingredient = models.Ingredient.objects.create(
             user=user,
