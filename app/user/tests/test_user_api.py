@@ -9,8 +9,8 @@ from rest_framework.test import APIClient
 from rest_framework import status
 
 
-CREATE_USER_URL = reverse("user:create")
-TOKEN_URL = reverse("user:token")
+CREATE_USER_URL = reverse('user:create')
+TOKEN_URL = reverse('user:token')
 ME_URL = reverse('user:me')
 
 
@@ -22,7 +22,7 @@ def create_user(**params):
 class PublicUserApiTests(TestCase):
     """Test the public features of the user API."""
 
-    def setUP(self):
+    def setUp(self):
         self.client = APIClient()
 
     def test_create_user_success(self):
